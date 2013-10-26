@@ -8,6 +8,7 @@ module Traco
 
     def value
       locales_to_try.each do |locale|
+        locale = {:"zh-CN" => :"cn"}[locale.to_sym] || locale
         value = @record.send("#{@attribute}_#{locale}")
         return value if value.present?
       end

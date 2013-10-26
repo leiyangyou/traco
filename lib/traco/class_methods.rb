@@ -4,8 +4,10 @@ module Traco
       re = /\A#{attribute}_([a-z]{2})\z/
 
       column_names.
-        grep(re) { $1.to_sym }.
-        sort_by(&locale_sort_value)
+        grep(re) {
+          locale = $1.to_sym
+          {:cn => :"zh-CN"}[locale] || locale
+        }.sort_by(&locale_sort_value)
     end
 
     def locale_columns(*attributes)

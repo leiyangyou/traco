@@ -54,7 +54,8 @@ module Traco
     def define_localized_writer(attribute)
       traco_instance_methods.module_eval do
         define_method("#{attribute}=") do |value|
-          send("#{attribute}_#{I18n.locale}=", value)
+          locale = {:"zh-CN" => :"cn"}[I18n.locale.to_sym] || I18n.locale
+          send("#{attribute}_#{locale}=", value)
         end
       end
     end
